@@ -59,6 +59,10 @@ class helper_common {
 		return $string;
 	}
 
+	public static function alert($message, $level = 'danger') {
+		include ROOT_PATH.'/theme/'.theme.'/public/alert.html';
+	}
+
 	public static function system_error($message) {
 		ob_end_clean();
 		ob_start();
