@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/* bootstrap扩展 */
+body {color:#555;padding-top: 50px;}
+textarea {resize: vertical;}
+a code {cursor: pointer;}
+.container {max-width: 980px;}
+small {font-size: 12px;}
+.navbar {box-shadow: 0 0 1px #666;border: none;}
+.panel {box-shadow: 0 1px 1px rgba(102,102,102,.47);}
+.panel-heading {padding: 7px 10px;background-color: #F5F5F5;border-bottom: 1px solid #e0e0e0;}
+.panel-footer {padding: 7px 10px;background-color: #F5F5F5;border-top: none;}
+.dropdown-menu {min-width: 90px;}
+
+
+/* 自定义 */
+#header {}
+#wrapper {min-height: 400px;background-color: #e5e5e5;padding-top: 20px;}
+#footer {color: #999;background-color: #ffffff;clear: both;position: relative;box-shadow: 0 -1px 0 rgba(168,168,168,.33);min-height: 100px;text-align: center;padding-top: 30px;}
+
+/* 话题列表 */
+.no-padding {padding: 0;}
+.cell {clear: both;padding: 10px 15px;border-bottom: 1px solid #f0f0f0;}
+.cell:hover {background-color: #f8f8f8;}
+.topic .item {padding-left: 58px;}
+.topic .topic_title {font-size: 16px;line-height: 150%;font-weight: normal;margin: 0;}
+.topic .topic-meta {font-size: 12px;margin-top: 5px;}
+.topic .topic-meta a {color:#666;}
+
+/* 边栏 */
+.panel-body-ds {margin-top: 15px;font-size: 14px;}
+
+/* 头像 */
+.avatar img {border-radius: 4px;}
+
+/* 文本框 */
+.postarea {font-size: 12px;line-height: 20px;}
