@@ -63,6 +63,17 @@ class helper_common {
 		include ROOT_PATH.'/theme/'.theme.'/public/alert.html';
 	}
 
+	public static function mbstrlen($str) {
+		/* 中文字数，utf8编码 */
+		$strlen = strlen($str);
+		$count = 0;
+		for( $i = 0; $i<$strlen; $i++ ) {
+			if(ord($str{$i}) >= 128) $i = $i + 3;
+			$count++;
+		}
+		return $count;
+	}
+
 	public static function system_error($message) {
 		ob_end_clean();
 		ob_start();
