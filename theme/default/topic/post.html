@@ -12,7 +12,7 @@ helper_theme::header();
 	<div class="form-group">
 	    <div class="input-group">
 	      <div class="input-group-btn">
-	        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><?php echo $nodelist[0]['nodename'];?><span class="caret"></span></button>
+	        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><?php echo $nodelist[1]['nodename'];?><span class="caret"></span></button>
 	        <ul id="nodelist" class="dropdown-menu" role="menu">
 	        	<?php foreach ($nodelist as $key => $node):?>
 	          	<li><a href="javascript:;" data-value="<?php echo $node['nid'];?>"><?php echo $node['nodename'];?></a></li>
