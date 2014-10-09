@@ -26,4 +26,21 @@ class TopicModel {
 		}
 		return $nodelist;
 	}
+
+	public function add($request) {
+		//添加话题
+
+		/* user */
+		$user = Yaf_Registry::get('_u');
+
+		$data = array();
+		$data['nid'] = $request['node'];
+		$data['uid'] = $user['uid'];
+		$data['username'] = $user['name'];
+		$data['title'] = $request['title'];
+		$data['content'] = $request['content'];
+		$data['postdate'] = time();
+
+		return $this->db->insert('topic', $data, true);
+	}
 }

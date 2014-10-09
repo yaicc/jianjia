@@ -75,6 +75,7 @@ class helper_common {
 	}
 
 	public static function system_error($message) {
+		if (!Yaf_Registry::get('config')->customer->debug) return true;
 		ob_end_clean();
 		ob_start();
 
@@ -125,20 +126,18 @@ p.footer {
 <div id="body">
 <h1>$message</h1>
 EOT;
-		if (Yaf_Registry::get('config')->customer->debug) {
-			if($phpmsg = debug_backtrace()) {
-				if(is_array($phpmsg)) {
-					foreach($phpmsg as $k => $msg) {
-						$k++;
-						echo '<code>'.$k.'. ';
-						if (isset($msg['file'])) {
-							echo '[Line: '.$msg['line'].']'.$msg['file'];
-						}
-						echo '('.$msg['function'].')</code>';
+		if($phpmsg = debug_backtrace()) {
+			if(is_array($phpmsg)) {
+				foreach($phpmsg as $k => $msg) {
+					$k++;
+					echo '<code>'.$k.'. ';
+					if (isset($msg['file'])) {
+						echo '[Line: '.$msg['line'].']'.$msg['file'];
 					}
-				} else {
-					echo $phpmsg;
+					echo '('.$msg['function'].')</code>';
 				}
+			} else {
+				echo $phpmsg;
 			}
 		}
 		echo <<<EOT

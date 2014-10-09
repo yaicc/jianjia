@@ -44,12 +44,15 @@ class UserModel {
 			$adminid = $this->ss->has('adminid') ? $this->ss->get('adminid') : 0;
 			if ($user) {
 				if ($adminid && $user['adminid'] != $adminid) return false;
-				else { $this->save_session($user); return $user;}
-			} else return false;
+				else { 
+					$this->save_session($user);
+					return $user;
+				}
+			} else 
+				return false;
 		} else {
 			return false;
 		}
-		return true;
 	}
 
 	private function save_session($user, $admin = 0) {

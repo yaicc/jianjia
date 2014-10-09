@@ -54,6 +54,31 @@ CREATE TABLE `node` (
 
 insert  into `node`(`nid`,`nodename`,`nodealias`,`nodedesc`) values (1,'经典短篇','classic-short','聊追一日事，书以为短篇。短篇意为：短小的文章作品或短小的文学作品等。我们说的：散文、诗歌、杂文、论文、故事、语句、短篇小说等都属于短篇！'),(2,'原创美文','original','用笔墨恳谈，以思想交流。文笔不论，且述说自己的灵感！'),(3,'读书笔记','reading-notes','至乐莫如读书。最淡的墨水，也胜过最强的记忆，分享你读到的知识和感悟，同样使你快乐！');
 
+/*Table structure for table `topic` */
+
+DROP TABLE IF EXISTS `topic`;
+
+CREATE TABLE `topic` (
+  `tid` int(9) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `nid` tinyint(1) unsigned NOT NULL COMMENT '节点id，索引idx_topic_node',
+  `uid` int(9) unsigned NOT NULL COMMENT '用户id',
+  `username` char(24) NOT NULL COMMENT '用户名',
+  `title` varchar(300) NOT NULL COMMENT '主题',
+  `content` mediumtext NOT NULL COMMENT '内容',
+  `top` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '置顶贴，默认0-不置顶、1-节点置顶、2-全局置顶索引idx_topic_top',
+  `rate` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '精华贴，默认0-非精华、1-精华',
+  `commit` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否允许评论，默认0-允许、1-不允许',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '帖子状态，默认0-正常、1-锁贴，索引idx_topic_status',
+  `postdate` int(10) unsigned NOT NULL COMMENT '发表时间，unix时间戳',
+  PRIMARY KEY (`tid`),
+  KEY `idx_topic_node` (`nid`),
+  KEY `idx_topic_user` (`uid`),
+  KEY `idx_topic_top` (`top`,`status`),
+  KEY `idx_topic_status` (`status`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='话题表';
+
+/*Data for the table `topic` */
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
