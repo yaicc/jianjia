@@ -16,6 +16,19 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`jianjia` /*!40100 DEFAULT CHARACTER SET
 
 USE `jianjia`;
 
+/*Table structure for table `authorization` */
+
+DROP TABLE IF EXISTS `authorization`;
+
+CREATE TABLE `authorization` (
+  `aid` bigint(20) unsigned NOT NULL COMMENT '主键、二进制',
+  `name` varchar(24) NOT NULL COMMENT '权限名称',
+  `alias` varchar(20) NOT NULL COMMENT '权限别名',
+  PRIMARY KEY (`aid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='权限表';
+
+/*Data for the table `authorization` */
+
 /*Table structure for table `member` */
 
 DROP TABLE IF EXISTS `member`;
@@ -53,6 +66,19 @@ CREATE TABLE `node` (
 /*Data for the table `node` */
 
 insert  into `node`(`nid`,`nodename`,`nodealias`,`nodedesc`) values (1,'经典短篇','classic-short','聊追一日事，书以为短篇。短篇意为：短小的文章作品或短小的文学作品等。我们说的：散文、诗歌、杂文、论文、故事、语句、短篇小说等都属于短篇！'),(2,'原创美文','original','用笔墨恳谈，以思想交流。文笔不论，且述说自己的灵感！'),(3,'读书笔记','reading-notes','至乐莫如读书。最淡的墨水，也胜过最强的记忆，分享你读到的知识和感悟，同样使你快乐！');
+
+/*Table structure for table `role` */
+
+DROP TABLE IF EXISTS `role`;
+
+CREATE TABLE `role` (
+  `rid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(24) NOT NULL COMMENT '角色名',
+  `value` bigint(20) NOT NULL COMMENT '权限值',
+  PRIMARY KEY (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='角色表';
+
+/*Data for the table `role` */
 
 /*Table structure for table `topic` */
 

@@ -3,7 +3,8 @@
 class adminController extends base_admin {
 
 	public function indexAction() {
-		
+		$this->getView()->assign("content", "Hello World");
+		$this->show();
 	}
 
 	public function loginAction() {
@@ -17,5 +18,7 @@ class adminController extends base_admin {
 			}
 			$this->redirect('/admin/');
 		}
+		$this->initView();
+		$this->display('login');
 	}
 }

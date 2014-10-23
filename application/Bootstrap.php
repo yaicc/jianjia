@@ -100,5 +100,6 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
         $session = Yaf_Session::getInstance();
         $user_model = new UserModel();
         $user = $user_model->auth();
+        Yaf_Registry::set("_u", $user);
     }
 }
