@@ -57,11 +57,6 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 	public function _initSession(Yaf_Dispatcher $dispatcher) {
         if (!empty($this->config->session)) {
             $session = $this->config->session;
-            session_set_cookie_params(
-                $session->cookie_lifetime,
-                $session->cookie_path, 
-                $session->cookie_domain
-            );
             session_name($session->name);
             if(!empty($session->save_handler)) {
                 switch($session->save_handler) {

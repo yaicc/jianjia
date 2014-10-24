@@ -21,4 +21,8 @@ class adminController extends base_admin {
 		$this->initView();
 		$this->display('login');
 	}
+
+	public function profileAction() {
+		$this->show();
+	}
 }
