@@ -76,9 +76,11 @@ CREATE TABLE `role` (
   `name` varchar(24) NOT NULL COMMENT '角色名',
   `value` bigint(20) NOT NULL COMMENT '权限值',
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='角色表';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='角色表';
 
 /*Data for the table `role` */
+
+insert  into `role`(`rid`,`name`,`value`) values (1,'站长',0);
 
 /*Table structure for table `topic` */
 

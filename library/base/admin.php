@@ -27,16 +27,23 @@ class base_admin extends Yaf_Controller_Abstract {
 			$this->redirect('/admin/admin/login');
 		}
 
+		/* 网站后台信息初始化 */
+		$this->init_info();
+
 		/* 网站后台权限初始化 */
 		$this->permissions();
 	}
 
-	private function permissions() {
+	private function init_info() {
 		$request = $this->getRequest();
-		$this->info['controller'] = $request->getControllerName();
-		$this->info['action'] = $request->getActionName();
-		$auth_name = $this->info['controller'].$this->info['action'];
-		if ($aid = Yaf_Registry::get('db')->fetch_field("select aid from authorization where alias = '$auth_name'")) {
+		$this->info['controller'] = strtolower($request->getControllerName());
+		$this->info['action'] = strtolower($request->getActionName());
+		$this->load('menu/menu'.ucfirst($this->info['controller']).'.php');
+	}
+
+	private function permissions() {
+		$auth_name = $this->info['alias'];
+		if ($aid = Yaf_Registry::get('db')->fetch_field("select `aid` from authorization where alias = '$auth_name'")) {
 			if (!($this->user['adminid'] & $aid)) {
 				exit('没有权限');
 			}
@@ -46,9 +53,19 @@ class base_admin extends Yaf_Controller_Abstract {
 	protected function show() {
 		/* 视图 */
 		$this->initView();
-		$this->setViewPath(ROOT_PATH."/application/modules/admin/views");
-		$this->getView()->assign("controller", $this->info['controller']);
-		$this->getView()->assign("action", $this->info['action']);
+		$this->setViewPath(APP_PATH."/modules/admin/views");
+		$this->getView()->assign("info", $this->info);
 		$this->display('../admin');
+	}
+
+	protected function load($file) {
+		/* 加载文件*/
+		$path = APP_PATH.'/modules/admin/';
+		include $path.$file;
+		if (isset($menu)) {
+			$info = $menu[$this->info['controller']][$this->info['action']];
+			$this->info['alias'] = $info[0];
+			$this->info['name'] = $info[1];
+		}
 	}
 }

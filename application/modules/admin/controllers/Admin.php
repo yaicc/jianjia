@@ -23,6 +23,7 @@ class adminController extends base_admin {
 	}
 
 	public function profileAction() {
+		$this->getView()->assign("user", $this->user);
 		$this->show();
 	}
 }
