@@ -42,10 +42,12 @@ class base_admin extends Yaf_Controller_Abstract {
 	}
 
 	private function permissions() {
-		$auth_name = $this->info['alias'];
-		if ($aid = Yaf_Registry::get('db')->fetch_field("select `aid` from authorization where alias = '$auth_name'")) {
-			if (!($this->user['adminid'] & $aid)) {
-				exit('没有权限');
+		if (isset($this->info['alias'])) {
+			$auth_name = $this->info['alias'];
+			if ($aid = Yaf_Registry::get('db')->fetch_field("select `aid` from authorization where alias = '$auth_name'")) {
+				if (!($this->user['adminid'] & $aid)) {
+					exit('没有权限');
+				}
 			}
 		}
 	}
@@ -62,7 +64,7 @@ class base_admin extends Yaf_Controller_Abstract {
 		/* 加载文件*/
 		$path = APP_PATH.'/modules/admin/';
 		include $path.$file;
-		if (isset($menu)) {
+		if (isset($menu) && isset($menu[$this->info['controller']][$this->info['action']])) {
 			$info = $menu[$this->info['controller']][$this->info['action']];
 			$this->info['alias'] = $info[0];
 			$this->info['name'] = $info[1];

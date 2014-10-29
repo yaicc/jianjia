@@ -9,16 +9,20 @@ class helper_theme {
 
 	public static function header() {
 
-		include ROOT_PATH.'/theme/'.theme.'/public/head.html';
+		return ROOT_PATH.'/theme/'.theme.'/public/head.html';
 	}
 
 	public static function footer() {
 
-		include ROOT_PATH.'/theme/'.theme.'/public/foot.html';
+		return ROOT_PATH.'/theme/'.theme.'/public/foot.html';
 	}
 
 	public static function right() {
 
-		include ROOT_PATH.'/theme/'.theme.'/public/right.html';
+		return ROOT_PATH.'/theme/'.theme.'/public/right.html';
+	}
+
+	public static function template($path) {
+		return ROOT_PATH.'/theme/'.theme.'/'.rtrim($path, '/').'.html';
 	}
 }

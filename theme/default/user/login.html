@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="chao507@vip.qq.com">
+
+    <title>登录 - 蒹葭社区</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="all">
+    
+    <style type="text/css">
+      body {background: #111617;}
+      #background {width: 100%;height: 100%;top: 0;left: 0;position: absolute;}
+      .mask {width: 100%;height: 100%;z-index: 1;top: 0;left: 0;background-color: rgba(0,0,0,0.6);position: absolute;}
+      .form-signin {z-index:1;max-width: 320px;  margin: 200px auto;border-radius: 4px;background-color: #f4f4f4;padding: 37px;box-shadow: 0 10px 16px rgba(0,0,0,0.27);position: relative;}
+      .form-signin .form-signin-heading {padding: 0 0 20px;margin: 0;font-size: 15px;color: #53585c;}
+      .form-signin .form-signin-heading:after {content: "";display: block;margin-top:15px;height: 1px;opacity: .4;background-image: -webkit-linear-gradient(left,transparent 0%,#bdc3c7 50%,transparent 100%);}
+      .form-signin .form-signin-heading a {color: #1aaf5d;font-weight: 400;padding-bottom: 2px;border-bottom: 1px solid #1aaf5d;}
+      .form-signin .form-control {font-size: 13px; color: #3e4f55; text-align: center;background: transparent;line-height: 22px;}
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div id="background"></div>
+      <div class="mask"></div>
+      <div class="form-signin">
+        <form role="form" method="post" action="<?php echo helper_common::uri('login');?>">
+          <h2 class="form-signin-heading">还没有帐号，马上注册一个！ <a href="<?php echo helper_common::uri('register');?>">注册</a></h2>
+          <div class="form-group">
+            <input type="email" class="form-control input-lg" id="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password" required>
+          </div>        
+          <button class="btn btn-lg btn-block btn-success" type="submit">Sign in</button>
+        </form>
+      </div>
+    </div> <!-- /container -->
+    <script type="text/javascript">
+      (function(dom){
+        dom.getElementById("background").style.backgroundImage = "url(/static/images/login_bd.jpg)";
+        dom.getElementById("background").style.backgroundSize = "cover";
+      })(document);
+    </script>
+  </body>
+</html>
