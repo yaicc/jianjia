@@ -8,6 +8,9 @@ class base_jianjia extends Yaf_Controller_Abstract {
 	
 	/**
 	 * @var app_info
+	 * crumbs 面包屑标志
+	 * keywords 关键字
+	 * description 描述
 	*/
 	protected $app = array();
 
@@ -17,11 +20,6 @@ class base_jianjia extends Yaf_Controller_Abstract {
 
 	protected function assign($alias, $data) {
 		$view = $this->getView();
-		if(empty($this->app['assign_key'])) {
-			$this->app['assign_key'] = 1;
-			/* 公共数据渲染 */
-			$view->assign('app', $this->app);
-		}
 		$view->assign($alias, $data);
 	}
 }

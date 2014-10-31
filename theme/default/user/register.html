@@ -1,0 +1,49 @@
+<?php
+include helper_theme::header();
+?>
+<div class="panel-body">
+	<div class="register_title">
+		<p class="text_indent">蒹葭社区是一个简单、干净、清新，文学青年的网络聚集地，旨在让交流变得更简单、直接。不论是你原创，还是你心爱的发现，来社区与一群志同道合的朋友分享，同时也让你从中受益。在文字中畅游，再没有比这更快乐的事！</p>
+		<ol>
+			<li>请填写真实邮箱，用于激活您的帐号；</li>
+			<li>包括 Gmail 在内很多邮件服务商会把 jianjia 发送的邮件识别为垃圾邮件；</li>
+			<li>如果您没有收到 jianjia 发送的邮件，请注意查看您邮箱中的垃圾邮件；</li>
+			<li>请将来自 jianjia 的邮件设置成不是垃圾邮件，以便接受本站邮件；</li>
+			<li>请将来自 jianjia 的邮件设置成不是垃圾邮件，以便接受本站邮件；</li>
+		</ol>
+	</div>
+	<form class="form-horizontal" role="form" method="post" action="<?php helper_common::uri('register');?>">
+		<div class="form-group">
+	      <label for="email" class="col-sm-4 control-label">帐号 / 电子邮箱</label>
+	      <div class="col-sm-4">
+	         <input type="email" class="form-control" id="email" value="" placeholder="Email">
+	      </div>
+	   </div>
+	   <div class="form-group">
+	      <label for="password" class="col-sm-4 control-label">密码</label>
+	      <div class="col-sm-4">
+	         <input type="password" class="form-control" id="password" value="" placeholder="Password">
+	      </div>
+	   </div>
+	   <div class="form-group">
+	      <label for="confirm_password" class="col-sm-4 control-label">确认密码</label>
+	      <div class="col-sm-4">
+	         <input type="password" class="form-control" id="confirm_password" value="" placeholder="Password">
+	      </div>
+	   </div>
+	   <div class="form-group">
+	      <label for="nickname" class="col-sm-4 control-label">用户昵称</label>
+	      <div class="col-sm-4">
+	         <input type="text" class="form-control" id="nickname" value="" placeholder="Nickname">
+	      </div>
+	   </div>
+	   <div class="form-group">
+	      <div class="col-sm-2 col-md-offset-4">
+	         <input type="submit" class="btn btn-block btn-success">
+	      </div>
+	   </div>
+	</form>
+</div>
+<?php
+include helper_theme::footer();
+?>

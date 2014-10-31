@@ -29,7 +29,7 @@ class helper_common {
 		if (empty(self::$domain)) {
 			self::$domain = Yaf_Registry::get("config")->customer->domain;
 		}
-		return 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.')) ? '' : '/');
+		echo 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.')) ? '' : '/');
 	}
 
 	public static function redirect($uri, $message = '', $seconds = 0, $type = 'succeed') {
