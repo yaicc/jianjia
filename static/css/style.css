@@ -18,6 +18,7 @@ small {font-size: 12px;}
 #wrapper {min-height: 400px;background-color: #e5e5e5;padding-top: 20px;}
 #footer {color: #999;background-color: #ffffff;clear: both;position: relative;box-shadow: 0 -1px 0 rgba(168,168,168,.33);min-height: 100px;text-align: center;padding-top: 30px;}
 .text_indent {text-indent: 2em;}
+.control-message {text-align: left !important;font-size: 12px;}
 /* 话题列表 */
 .no-padding {padding: 0;}
 .cell {clear: both;padding: 10px 15px;border-bottom: 1px solid #f0f0f0;}

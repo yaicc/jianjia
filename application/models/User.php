@@ -43,7 +43,7 @@ class UserModel {
 				$uid = intval($auth_id);
 				$user = $this->db->fetch_row("select * from member where `uid` = '$uid'");
 				if ($user) {
-					$this->save_session($user);
+					//$this->save_session($user);
 					return $user;
 				} else 
 					return false;

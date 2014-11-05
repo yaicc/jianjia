@@ -74,6 +74,12 @@ class helper_common {
 		return $count;
 	}
 
+	public static function _404() {
+		header("HTTP/1.1 404 Not Found");
+		header("status: 404 Not Found");
+		exit();
+	}
+
 	public static function system_error($message) {
 		if (!Yaf_Registry::get('config')->customer->debug) return true;
 		ob_end_clean();
