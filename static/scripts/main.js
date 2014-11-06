@@ -12,7 +12,7 @@ $(function($) {
 	/* end post */
 
 	/* register */
-	$('#login_form .form-control').blur(function(){
+	$('#sign_form .form-control').blur(function(){
 		var box_dom = $(this).parent().parent(), dom_id = $(this).attr('id'), dom_val = $(this).val();
 		if (dom_val.length == 0) {
 			control_message(box_dom, "不能为空");
@@ -48,6 +48,14 @@ $(function($) {
 					});
 					break;
 			}
+		}
+	});
+	$('#sign_submit').click(function(){
+		$('#sign_form .form-control').each(function(){
+			$(this).blur();
+		});
+		if ($('.form-group').hasClass('has-error')) {
+			return false;
 		}
 	});
 	/* end register*/

@@ -17,10 +17,11 @@
       #background {width: 100%;height: 100%;top: 0;left: 0;position: absolute;}
       .mask {width: 100%;height: 100%;z-index: 1;top: 0;left: 0;background-color: rgba(0,0,0,0.6);position: absolute;}
       .container {z-index:1;min-width:300px;position: absolute; left: 50%;top: 50%;padding: 0;}
+      .login-error {max-width:320px;padding: 10px 37px;background-color: #f4f4f4;border-left: 1px solid;border-left-color: #d9534f;border-left-width: 5px;box-shadow: 0 10px 16px rgba(0,0,0,0.27);margin: 0 auto;margin-bottom: 25px;color: #d9534f;border-radius: 4px;}
       .form-signin {max-width:320px;border-radius: 4px;background-color: #f4f4f4;padding: 37px;box-shadow: 0 10px 16px rgba(0,0,0,0.27);margin: 0 auto;}
       .form-signin .form-signin-heading {padding: 0 0 20px;margin: 0;font-size: 15px;color: #53585c;}
       .form-signin .form-signin-heading:after {content: "";display: block;margin-top:15px;height: 1px;opacity: .4;background-image: -webkit-linear-gradient(left,transparent 0%,#bdc3c7 50%,transparent 100%);}
-      .form-signin .form-signin-heading a {color: #1aaf5d;font-weight: 400;padding-bottom: 2px;border-bottom: 1px solid #1aaf5d;}
+      .form-signin .form-signin-heading a, .login-error a {color: #1aaf5d;font-weight: 400;padding-bottom: 2px;border-bottom: 1px solid #1aaf5d;}
       .form-signin .form-control {font-size: 13px; color: #3e4f55; text-align: center;background: transparent;line-height: 22px;}
     </style>
   </head>
@@ -29,6 +30,11 @@
       <div id="background"></div>
       <div class="mask"></div>
       <div id="container" class="container">
+      <?php if (isset($alert) && $alert['status'] == false) :?>
+        <div class="login-error">
+          <?php echo $alert['msg'];?>
+        </div>
+      <?php endif;?>
         <div class="form-signin">
           <form role="form" method="post" action="<?php helper_common::uri('login');?>">
             <h2 class="form-signin-heading">还没有帐号，马上注册一个！ <a href="<?php helper_common::uri('register');?>">注册</a></h2>

@@ -1,11 +1,40 @@
-<div class="col-xs-12 col-sm-3">
+<div class="col-xs-12 col-sm-12 col-md-3" id="right-box">
   <div class="panel">
 	 <div class="panel-heading">蒹葭社区</div>
 	  <div class="panel-body">
-	    您可以 <a href="<?php helper_common::uri('login');?>">登录</a> 或 <a href="<?php helper_common::uri('register');?>">注册</a>
-	    <p class="panel-body-ds">蒹葭社区 - 简单、干净、清新、文学青年的网络聚集地，让交流变得更简单、直接。</p>
+	  	<?php if ( $user ) :?>
+	  		<div class="user-avatar">
+	  			<?php echo helper_user::avatar($user['avatar'], 'middle');?>
+	  		</div>
+	  		<div class="user-title">
+	  			<h3><?php echo $user['name'];?></h3>
+	  			<p><?php echo $user['email'];?></p>
+	  		</div>
+	  		<div class="clearfix"></div>
+	  		<div class="user-info">
+	  			<dl><dd>0</dd><dt>Credits</dt></dl>
+	  			<dl><dd>0</dd><dt>Topics</dt></dl>
+	  			<dl><dd>0</dd><dt>Comments</dt></dl>
+	  		</div>
+	  		<div class="user-signature">
+	  			“
+	  			自从一见桃花后，直至如今更不疑
+	  			”
+	  		</div>
+	  	<?php else :?>
+		    您可以 <a href="<?php helper_common::uri('login');?>">登录</a> 或 <a href="<?php helper_common::uri('register');?>">注册</a>
+		    <p class="panel-body-ds">蒹葭社区 - 简单、干净、清新、文学青年的网络聚集地，让交流变得更简单、直接。</p>
+		<?php endif;?>
 	 </div>
   </div>
+<?php if ( $user ) :?>
+  <div class="panel">
+	 <div class="panel-heading">发布话题</div>
+	  <div class="panel-body">
+	    <a href="<?php helper_common::uri('post');?>" class="btn btn-success" role="button">发布话题</a>
+	 </div>
+  </div>
+<?php endif;?>
   <div class="panel">
 	 <div class="panel-heading">热门话题</div>
 	  <div class="panel-body">

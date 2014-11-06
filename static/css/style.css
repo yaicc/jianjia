@@ -4,7 +4,7 @@
 body {color:#555;padding-top: 50px;}
 textarea {resize: vertical;}
 a code {cursor: pointer;}
-.container {max-width: 980px;}
+.container {max-width: 1170px;}
 small {font-size: 12px;}
 .navbar {box-shadow: 0 0 1px #666;border: none;}
 .panel {box-shadow: 0 1px 1px rgba(102,102,102,.47);}
@@ -19,6 +19,24 @@ small {font-size: 12px;}
 #footer {color: #999;background-color: #ffffff;clear: both;position: relative;box-shadow: 0 -1px 0 rgba(168,168,168,.33);min-height: 100px;text-align: center;padding-top: 30px;}
 .text_indent {text-indent: 2em;}
 .control-message {text-align: left !important;font-size: 12px;}
+
+/* user bar */
+.navbar-user {margin: 0;list-style: none;}
+.navbar-user li {float:left;margin: 0;}
+.navbar-user li a {display:block;line-height:20px;padding:15px 15px;color: #777;}
+.user-avatar {float: left;height: 48px;}
+.user-avatar img {border-radius: 5px;}
+.user-title {float: left;height: 48px;margin-left: 10px;}
+.user-title h3 {margin: 0;font-size: 16px;font-weight: 800;color: #292f33;line-height: 25px;}
+.user-title p {color: #777;}
+.user-info {margin: 15px 0;padding-left: 1px;border-top: 1px solid #eee;border-bottom: 1px solid #eee;}
+.user-info dl {float: left;margin: 10px 0;border-right: 1px solid #eee;margin-right: 10px;padding-right: 15px;max-width: 33%;overflow: hidden;}
+.user-info dl:nth-child(3) {border-right: none;}
+.user-info dd {font-size: 16px;font-weight: 700;}
+.user-info dt {font-size: 14px;font-weight: 500;}
+.user-info:after {content:  "";display: table;clear: both;}
+.user-signature {margin-top:15px;font-style: italic;font-size: 12px;color: #333;}
+
 /* 话题列表 */
 .no-padding {padding: 0;}
 .cell {clear: both;padding: 10px 15px;border-bottom: 1px solid #f0f0f0;}

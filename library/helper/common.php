@@ -32,10 +32,17 @@ class helper_common {
 		echo 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.')) ? '' : '/');
 	}
 
+	public static function get_uri($url = '') {
+		if (empty(self::$domain)) {
+			self::$domain = Yaf_Registry::get("config")->customer->domain;
+		}
+		return 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.')) ? '' : '/');
+	}
+
 	public static function redirect($uri, $message = '', $seconds = 0, $type = 'succeed') {
 		if ($seconds == 0) {
 			//表示永远停留页面
-			header("Location: ".self::uri($uri));
+			header("Location: ".self::get_uri($uri));
 		}
 		exit;
 	}
@@ -47,11 +54,23 @@ class helper_common {
 		return $password;
 	}
 
+	public static function array_addslashes($string) {
+		if(empty($string)) return $string;
+		if(is_array($string)) {
+			foreach($string as $key => $val) {
+				$string[$key] = self::array_addslashes($val);
+			}
+		} else {
+			$string = addslashes($string);
+		}
+		return $string;
+	}
+
 	public static function array_stripslashes($string) {
 		if(empty($string)) return $string;
 		if(is_array($string)) {
 			foreach($string as $key => $val) {
-				$string[$key] = tiny_stripslashes($val);
+				$string[$key] = self::array_stripslashes($val);
 			}
 		} else {
 			$string = stripslashes($string);

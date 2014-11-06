@@ -10,6 +10,10 @@ class topicController extends base_jianjia {
 
 		/* app data*/
 		$this->app['crumbs'] = "发表话题";
+
+		if (!Yaf_Registry::get('_u')) {
+			helper_common::redirect('login');
+		}
 		
 		$topic_model = new TopicModel();
 		$nodelist = $topic_model->nodelist();

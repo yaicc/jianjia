@@ -10,6 +10,14 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		Yaf_Registry::set('config', $this->config);
 	}
 
+    //全局变量初始化
+    public function _initGlobal() {
+        $_g = array();
+        $_g['ip'] = getenv('REMOTE_ADDR');
+        $_g['refer'] = getenv('HTTP_REFERER') ? getenv('HTTP_REFERER') : helper_common::get_uri();
+        Yaf_Registry::set("_g", $_g);
+    }
+
 	//配置是否报错
     public function _initError(Yaf_Dispatcher $dispatcher) {
         if ($this->config->customer->debug) {
@@ -86,11 +94,13 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
         Yaf_Session::getInstance()->start();
     }
 
+    //数据库初始化
 	public function _initDatabase(Yaf_Dispatcher $dispatcher) {
         $db = db_mysqli::getInstance($this->config->db->toArray());
         Yaf_Registry::set('db', $db);
 	}
 
+    //用户初始化
     public function _initUser(Yaf_Dispatcher $dispatcher) {
         $session = Yaf_Session::getInstance();
         $user_model = new UserModel();
