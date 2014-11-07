@@ -20,16 +20,12 @@ class topicController extends base_jianjia {
 		$request = $this->getRequest();
 		if($request->isPost()) {
 			$data = $request->getPost();
-			if (empty($data['title'])) $this->assign('alert', helper_common::be_false('请输入标题'));
-			elseif (empty($data['content'])) $this->assign('alert', helper_common::be_false('请输入内容'));
-			elseif (helper_common::mbstrlen($data['content']) < 15) $this->assign('alert', helper_common::be_false('内容少于15字'));
-			elseif (empty($nodelist[$data['node']])) $this->assign('alert', helper_common::be_false('无效的节点'));
-			else {
-				/* 话题入库 */
-				if($tid = $topic_model->add($data)) {
-					helper_common::redirect('topic/'.$tid);
-				}
-				$this->assign('alert', helper_common::be_false('应用程序错误，暂时无法发表话题'));
+			$topic_add = $topic_model->add($data);
+			if ($topic_add['status']) {
+				exit(helper_common::get_uri()."topic/".$topic_add['data']);
+			} else {
+				$this->assign('alert', $topic_add);
+				$this->assign('data', $data);
 			}
 		}
 		$this->assign('nodelist', $nodelist);

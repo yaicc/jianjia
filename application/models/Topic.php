@@ -27,20 +27,42 @@ class TopicModel {
 		return $nodelist;
 	}
 
+	public function list($node, $user, $start, $limit, $order) {
+		//话题列表
+	}
+
 	public function add($request) {
 		//添加话题
 
 		/* user */
 		$user = Yaf_Registry::get('_u');
+		if (!$user) {
+			return helper_common::be_false("请先登录");
+		}
+
+		$nodelist = $this->nodelist();
+
+		if (empty(trim($request['title']))) return helper_common::be_false('请输入标题');
+		elseif (empty($request['content'])) return helper_common::be_false('请输入内容');
+		elseif (helper_common::mbstrlen($request['content']) < 15) return helper_common::be_false('内容少于15字');
+		elseif (empty($nodelist[$request['node']])) return helper_common::be_false('无效的节点');
+
+		/* content 内容过滤 */
+
+		$request = helper_common::array_addslashes($request);
 
 		$data = array();
 		$data['nid'] = $request['node'];
 		$data['uid'] = $user['uid'];
 		$data['username'] = $user['name'];
-		$data['title'] = $request['title'];
+		$data['title'] = trim($request['title']);
 		$data['content'] = $request['content'];
 		$data['postdate'] = time();
 
-		return $this->db->insert('topic', $data, true);
+		if ($tid = $this->db->insert('topic', $data, true)) {
+			return helper_common::be_true($tid);
+		} else {
+			return helper_common::be_false("应用程序发生错误，请稍候再试");
+		}
 	}
 }

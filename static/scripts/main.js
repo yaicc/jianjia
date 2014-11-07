@@ -1,6 +1,19 @@
 $(function($) {
 
 	/* post */
+	var editor = new Simditor({
+  		textarea: $('#editor'),
+  		toolbar: [ 'title', 'bold', 'italic', 'underline', 'strikethrough', 'color', 'ol', 'ul', 'blockquote', 'link', 'image', 'hr', 'indent', 'outdent', 'emoji' ],
+  		upload: {
+  			url: '/ajax/upload/',
+  			fileKey: 'upload_image',
+  			connectionCount: 3,
+  			leaveConfirm: '正在上传文件，如果离开上传会自动取消'
+  		},
+  		emoji: {
+	        imagePath: '/static/simditor/images/emoji/'
+	    }
+  	});
 	$('#nodelist a').click(function(){
 		$('#node').val($(this).data('value'));
 		$('.dropdown-toggle').html($(this).text()+'<span class="caret"></span>');

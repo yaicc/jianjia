@@ -5,7 +5,7 @@ class ajaxController extends Yaf_Controller_Abstract {
 	function init() {
 		/* 判断来路 */
 		if(!$this->_request->isXmlHttpRequest()) {
-			//helper_common::_404();
+			helper_common::_404();
 		}
 		/* 关闭视图 */
     	Yaf_Dispatcher::getInstance()->disableView();
@@ -30,6 +30,21 @@ class ajaxController extends Yaf_Controller_Abstract {
 			} else {
 				exit('true');
 			}
+		}
+	}
+
+	public function uploadAction() {
+		header("Content-type:application/json;charset=utf-8");
+		if (!Yaf_Registry::get('_u')) {
+			exit(json_encode(array(
+				'success' => false,
+				'msg' => '请先登录社区'
+			)));
+		} else {
+			/* 上传配置 */
+			$file = $this->getRequest()->getFiles('upload_image');
+			$upload = helper_upload::upload_image($file);
+			exit(json_encode($upload));
 		}
 	}
 }

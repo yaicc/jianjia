@@ -102,7 +102,6 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 
     //用户初始化
     public function _initUser(Yaf_Dispatcher $dispatcher) {
-        $session = Yaf_Session::getInstance();
         $user_model = new UserModel();
         $user = $user_model->auth();
         Yaf_Registry::set("_u", $user);

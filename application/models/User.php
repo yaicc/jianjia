@@ -78,9 +78,8 @@ class UserModel {
 	}
 
 	public function auth() {
-		if (isset($_COOKIE['auth_token']) && isset($_COOKIE['auth_id'])) {
-			$auth_token = $_COOKIE['auth_token'];
-			$auth_id = $_COOKIE['auth_id'];
+		$request = Yaf_Dispatcher::getInstance()->getRequest();
+		if ( !empty($auth_token = $request->getCookie('auth_token')) && !empty($auth_id = $request->getCookie('auth_id')) ) {
 			$session_id = session_id();
 			if (!empty($auth_token) && !empty($auth_id) && !empty($session_id) && $auth_token == helper_common::authcode($auth_id).helper_common::authcode($session_id)) {
 				$uid = intval($auth_id);

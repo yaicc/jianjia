@@ -116,7 +116,6 @@ class db_mysqli {
     	$res = $this->query("INSERT INTO $table SET $sql");
     	if($res && $return_id) {
             $id = $this->curlink->insert_id;
-            $this->free_result($res);
             return $id;
         }
     	else return $res;
