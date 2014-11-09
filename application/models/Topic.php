@@ -27,8 +27,13 @@ class TopicModel {
 		return $nodelist;
 	}
 
-	public function list($node, $user, $start, $limit, $order) {
+	public function topic_list($start, $limit, $order, $node = 0) {
 		//话题列表
+		if ($node == 0) {
+			$list = $this->db->fetch_all("select * from topic where `status` = 0 order by $order limit $start, $limit");
+		} elseif ($node != 0) {
+			$list = $this->db->fetch_all("select * from topic where `status` = 0 and nid = $node order by $order limit $start, $limit");
+		}
 	}
 
 	public function add($request) {

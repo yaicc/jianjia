@@ -6,6 +6,10 @@ class topicController extends base_jianjia {
     	$this->assign("content", "Hello World");
 	}
 
+	public function topicAction() {
+
+	}
+
 	public function postAction() {
 
 		/* app data*/
