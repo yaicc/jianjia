@@ -1,5 +1,7 @@
 $(function($) {
 
+	var flag = false;
+
 	/* post */
 	if ($('#editor').length > 0) {
 		var editor = new Simditor({
@@ -16,13 +18,49 @@ $(function($) {
 		    }
 	  	});
 	}
+	if ($('#editor_comment').length > 0) {
+		var editor = new Simditor({
+	  		textarea: $('#editor_comment'),
+	  		toolbar: [ 'title', 'bold', 'color', 'blockquote', 'link', 'image', 'emoji' ],
+	  		upload: {
+	  			url: '/ajax/upload/',
+	  			fileKey: 'upload_image',
+	  			connectionCount: 3,
+	  			leaveConfirm: '正在上传文件，如果离开上传会自动取消'
+	  		},
+	  		emoji: {
+		        imagePath: '/static/simditor/images/emoji/'
+		    }
+	  	});
+	}
 	$('#nodelist a').click(function(){
 		$('#node').val($(this).data('value'));
 		$('.dropdown-toggle').html($(this).text()+'<span class="caret"></span>');
 	});
-	$('#post_form').submit(function(){
-		$('#post_form').submit();
-		$(this).attr("disabled", true).text('提交中。。。');
+	$('#post_submit').click(function(){
+		if (flag) return false;
+		if ($.trim($('#title').val()) == '') {
+			alert('标题不能为空');
+			return false;
+		}
+		if ($.trim(editor.getValue().replace(/<[^>]+>/g,"")) == '') {
+			/* empty */
+			alert('内容不能为空');
+			return false;
+		}
+		flag = true;
+		$(this).css("cursor", "not-allowed").text('提交中。。。');
+	});
+	$('#comment_submit').click(function(){
+		if (flag) return false;
+		if ($.trim(editor.getValue().replace(/<[^>]+>/g,"")) == '') {
+			/* empty */
+			if ($('#comment_alert strong').length == 0) $('#comment_alert').append($('<strong>警告！</strong> <span>你还没有发表你的观点哟！</span>'));
+			$('#comment_alert').show();
+			return false;
+		}
+		flag = true;
+		$(this).css("cursor", "not-allowed").text('提交中。。。');
 	});
 	/* end post */
 

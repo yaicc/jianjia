@@ -1,0 +1,30 @@
+<?php
+include helper_theme::header();
+$script = '<script src="/static/scripts/simditor.js"></script>';
+?>
+<div class="panel-body artcle">
+	<?php echo $topic['content'];?>
+</div>
+</div>
+<div class="panel comment">
+	<div class="panel-heading">发表看法</div>
+	<div class="panel-body">
+		<div class="alert alert-danger alert-dismissible" id="comment_alert" role="alert" <?php if (!isset($comment_alert)):?>style="display:none;"<?php endif;?>>
+		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  <?php if (isset($comment_alert)):?><strong>警告！</strong><?php echo $comment_alert['msg'];?></strong><?php endif;?>
+		</div>
+		<form id="comments_form" role="form" action="<?php helper_common::uri('topic/'.$topic['tid']);?>" method="post">
+			<div class="form-group">
+				<textarea class="form-control postarea" id="editor_comment" wrap="virtual" name="comment" required="true">
+					<?php if(isset($data['comment'])) echo $data['comment'];?>
+				</textarea>
+			</div>
+			<div class="form-group">
+				<button type="submit" id="comment_submit" class="btn btn-success">提交回复</button>
+			</div>
+		</form>
+	</div>
+</div>
+<?php
+include helper_theme::footer();
+?>

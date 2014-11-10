@@ -24,12 +24,15 @@ $script = '<script src="/static/scripts/simditor.js"></script>';
 	    </div><!-- /input-group -->
 	</div>
 	<div class="form-group">
-		<textarea class="form-control postarea" id="editor" wrap="virtual" name="content" required="true"><?php if(isset($data['content'])) echo $data['content'];?></textarea>
+		<textarea class="form-control postarea" id="editor" wrap="virtual" name="content" required="true">
+			<?php if(isset($data['content'])) echo $data['content'];?>
+		</textarea>
 	</div>
 	<div class="form-group">
 		<button type="submit" id="post_submit" class="btn btn-success">发表话题</button>
 	</div>
 </form>
+</div>
 </div>
 <?php
 include helper_theme::footer();

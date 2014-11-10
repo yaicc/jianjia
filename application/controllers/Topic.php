@@ -6,8 +6,32 @@ class topicController extends base_jianjia {
     	$this->assign("content", "Hello World");
 	}
 
-	public function topicAction() {
+	public function topicAction($tid) {
 
+		$topic_model = new TopicModel();
+
+		$topic = $topic_model->topic($tid);
+		if ($topic['status']) {
+			$topic = $topic['data'];
+
+			/* app data*/
+			$this->app['crumbs'] = $topic['title'];
+			$this->app['topic_right'] = true;
+
+			$this->assign('app', $this->app);
+			$this->assign('topic', $topic);
+		} else {
+			/* 404 */
+			helper_common::_404();
+		}
+
+		if ($this->getRequest()->isPost()) {
+			$data = $this->getRequest()->getPost();
+			$ret = $topic_model->add_comment($data, $tid);
+			if (!$ret['status']) {
+				$this->assign('comment_alert', $ret);
+			}
+		}
 	}
 
 	public function postAction() {

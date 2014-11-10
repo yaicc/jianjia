@@ -54,6 +54,28 @@ class helper_common {
 		return $password;
 	}
 
+	public static function time_format($time) {
+		/* 计算出时间差 */
+        $seconds = time() - $time;
+        $minutes = floor($seconds / 60);
+        $hours   = floor($minutes / 60);
+        $days    = floor($hours / 24);
+        /* 格式化输出 */
+        $diff = '';
+        if ($days > 0) {
+        	if ($days < 2) $diff = '昨天';
+        	elseif ($days < 15 && $days > 7) $diff = '上周';
+        	elseif ($days > 30 && $days < 60) $diff = '上月';
+        	elseif ($days < 70) $diff =  $days.'天前';
+        	else $diff = date('Y-m-d', $time);
+        } else {
+        	if ($hours > 0) $diff = $hours.'小时前';
+        	elseif ($minutes > 0) $diff = $minutes.'分钟前';
+        	else $diff = '刚刚';
+        }
+        return $diff;
+	}
+
 	public static function array_addslashes($string) {
 		if(empty($string)) return $string;
 		if(is_array($string)) {

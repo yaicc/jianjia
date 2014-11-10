@@ -56,3 +56,12 @@ small {font-size: 12px;}
 .postarea {font-size: 12px;line-height: 20px;}
 
 .register_title {margin:10px 30px 30px 30px;padding:5px 20px;border: 1px solid #ddd;border-radius: 4px;line-height: 22px;font-size: 12px;}
+
+/* 话题内容 */
+.artcle {padding: 25px;}
+.artcle p {line-height: 30px;}
+.artcle img {max-width: 100%;}
+.topic-info {margin: 15px 0;padding-left: 1px;border-top: 1px solid #eee;border-bottom: 1px solid #eee;}
+.topic-info ul {list-style: none;margin: 10px 0;padding: 0 1px;}
+.topic-info li {list-style: none;font-size: 13px;}
+.comment .simditor-body {min-height: 150px !important;}
