@@ -26,23 +26,21 @@ class helper_common {
 	}
 
 	public static function uri($url = '') {
-		if (empty(self::$domain)) {
-			self::$domain = Yaf_Registry::get("config")->customer->domain;
-		}
-		echo 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.')) ? '' : '/');
+		echo self::get_uri($url);
 	}
 
 	public static function get_uri($url = '') {
 		if (empty(self::$domain)) {
 			self::$domain = Yaf_Registry::get("config")->customer->domain;
 		}
-		return 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.')) ? '' : '/');
+		return 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.') || strpos($url, '#')) ? '' : '/');
 	}
 
 	public static function redirect($uri, $message = '', $seconds = 0, $type = 'succeed') {
+		$uri = stripos($uri, "http://") ? $uri : self::get_uri($uri);
 		if ($seconds == 0) {
 			//表示永远停留页面
-			header("Location: ".self::get_uri($uri));
+			header("Location: ".$uri);
 		}
 		exit;
 	}

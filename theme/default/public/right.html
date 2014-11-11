@@ -15,8 +15,14 @@
   			<ul>
   				<li>分类： <a href="<?php helper_common::uri('node/'.$topic['node_info']['nodealias']);?>"><?php echo $topic['node_info']['nodename'];?></a></li>
   				<li>发布： <?php echo helper_common::time_format($topic['postdate']);?></li>
-  				<li>浏览： 999 次</li>
-  				<li>回复： 壳斗马达 3分钟前</li>
+  				<li>浏览： <?php echo $topic['views'];?> 次</li>
+  				<li>回复： 
+  				<?php if ($topic['comment_info']['counts'] == 0): ?>暂无回复
+  				<?php else:?>
+  					<a href="<?php helper_common::uri('user/'.$topic['comment_info']['uid']);?>"><?php echo $topic['comment_info']['username'];?></a>
+  					<?php echo helper_common::time_format($topic['comment_info']['postdate']);?>
+  				<?php endif;?>
+  				</li>
   			</ul>
   		</div>
   		<?php if ( $topic['user_info']['signature'] ): ?>

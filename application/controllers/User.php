@@ -32,7 +32,8 @@ class userController extends base_jianjia {
 			$user = new UserModel();
 			$login = $user->login($data['email'], $data['password']);
 			if ($login['status']) {
-				helper_common::redirect();
+				//helper_common::redirect();
+				header("Location: ".Yaf_Registry::get('_g')['refer']);
 			} else {
 				$this->assign('alert', $login);
 			}

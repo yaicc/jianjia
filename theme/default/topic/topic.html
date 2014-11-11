@@ -6,9 +6,55 @@ $script = '<script src="/static/scripts/simditor.js"></script>';
 	<?php echo $topic['content'];?>
 </div>
 </div>
-<div class="panel comment">
+<div class="panel" id="comments">
+	<div class="panel-heading"><?php if ($topic['comment_info']['counts'] == 0): ?>暂无回复<?php else:?><?php echo $topic['comment_info']['counts'];?> 回复<?php endif;?></div>
+	<div class="panel-body">
+		<?php foreach ($topic['comments'] as $key => $value) : ?>
+			<?php $comments[$value['cid']] = $value;?>
+			<div class="cell" id="comment-<?php echo $value['cid'];?>">
+				<div class="avatar pull-left">
+					<a href="<?php helper_common::uri('user/'.$value['uid']);?>" title="<?php echo $value['username'];?>">
+						<?php helper_user::avatar($value['avatar'], 'middle');?>
+					</a>
+				</div>
+				<div class="item">
+					<div class="pull-right">
+						<span class="comment-count">#<?php echo $key+1;?></span>
+						<a href="javascript:;" class="comment-reply" data-cid="<?php echo $value['cid'];?>" data-login="<?php if($user)echo 1;else echo 0;?>">reply</a>
+					</div>
+					<div class="comment_info">
+						<a href="<?php helper_common::uri('user/'.$value['uid']);?>"><?php echo $value['username'];?></a> 
+						<span class="postdate"><?php echo helper_common::time_format($value['postdate']);?></span>
+					</div>
+					<div class="comment_data">
+						<?php if ($value['status'] == 0) : ?>
+						<?php if ($value['reply'] != 0) :?>
+							<div class="reply-to">
+								<?php if ($comments[$value['reply']]['status'] == 0) : ?>
+								<?php echo helper_common::array_stripslashes($comments[$value['reply']]['comment']);?>
+								<?php else: ?>
+								<p class="hide-comment">回复被隐藏</p>
+								<?php endif;?>
+								<a href="<?php helper_common::uri('user/'.$comments[$value['reply']]['uid']);?>" class="reply-user">
+									@<?php echo $comments[$value['reply']]['username'];?>
+								</a>
+							</div>
+						<?php endif;?>
+						<?php echo helper_common::array_stripslashes($value['comment']);?>
+						<?php else: ?>
+						<p class="hide-comment">回复被隐藏</p>
+						<?php endif;?>
+					</div>
+					<div class="div-blank"></div>
+				</div>
+			</div>
+		<?php endforeach;?>
+	</div>
+</div>
+<div class="panel comment" id="reply">
 	<div class="panel-heading">发表看法</div>
 	<div class="panel-body">
+		<?php if ($user) : ?>
 		<div class="alert alert-danger alert-dismissible" id="comment_alert" role="alert" <?php if (!isset($comment_alert)):?>style="display:none;"<?php endif;?>>
 		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		  <?php if (isset($comment_alert)):?><strong>警告！</strong><?php echo $comment_alert['msg'];?></strong><?php endif;?>
@@ -23,6 +69,10 @@ $script = '<script src="/static/scripts/simditor.js"></script>';
 				<button type="submit" id="comment_submit" class="btn btn-success">提交回复</button>
 			</div>
 		</form>
+		<?php else : ?>
+			<p class="no-login">您可以 <a href="<?php helper_common::uri('login');?>">登录</a> 或 <a href="<?php helper_common::uri('register');?>">注册</a></p>
+		    <p class="no-login">蒹葭社区 - 简单、干净、清新、文学青年的网络聚集地，让交流变得更简单、直接。</p>
+		<?php endif;?>
 	</div>
 </div>
 <?php

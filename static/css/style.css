@@ -37,14 +37,23 @@ small {font-size: 12px;}
 .user-info:after {content:  "";display: table;clear: both;}
 .user-signature {margin-top:15px;font-style: italic;font-size: 12px;color: #333;}
 
-/* 话题列表 */
+/* 列表 */
 .no-padding {padding: 0;}
 .cell {clear: both;padding: 10px 15px;border-bottom: 1px solid #f0f0f0;}
 .cell:hover {background-color: #f8f8f8;}
-.topic .item {padding-left: 58px;}
-.topic .topic_title {font-size: 16px;line-height: 150%;font-weight: normal;margin: 0;}
-.topic .topic-meta {font-size: 12px;margin-top: 5px;}
-.topic .topic-meta a {color:#666;}
+.cell .item {padding-left: 58px;}
+.cell .topic_title {font-size: 16px;line-height: 150%;font-weight: normal;margin: 0;}
+.cell .topic-meta {font-size: 12px;margin-top: 5px;}
+.cell .topic-meta a, .cell .comment_info a {color:#666;}
+.cell .comment_info {color:#666;font-size: 13px;}
+.cell .comment_info .postdate {color:#999;}
+.cell .comment-count {color: #999;}
+.cell .comment-reply {color: #666;}
+.cell .comment_data {line-height: 25px;margin-top: 5px;}
+.cell .comment_data .hide-comment {font-style: italic;}
+.cell .comment_data p img {max-width: 100%;}
+.cell .reply-to {font-size: 13px;margin: 1em;padding: 0 10px;border-left: 1px solid #999;line-height: 20px;}
+.cell .reply-to p {margin: 0;}
 
 /* 边栏 */
 .panel-body-ds {margin-top: 15px;font-size: 14px;}
@@ -64,4 +73,5 @@ small {font-size: 12px;}
 .topic-info {margin: 15px 0;padding-left: 1px;border-top: 1px solid #eee;border-bottom: 1px solid #eee;}
 .topic-info ul {list-style: none;margin: 10px 0;padding: 0 1px;}
 .topic-info li {list-style: none;font-size: 13px;}
-.comment .simditor-body {min-height: 150px !important;}
+.comment .simditor-body, .div-blank .simditor-body {min-height: 150px !important;}
+.no-login {text-align: center;}

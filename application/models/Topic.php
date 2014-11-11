@@ -25,6 +25,13 @@ class TopicModel {
 		$topic['content'] = helper_common::array_stripslashes($topic['content']);
 		$topic['user_info'] = $this->db->fetch_row("select * from member where `uid` = ".$topic['uid']);
 		$topic['node_info'] = $this->db->fetch_row("select nodename,nodealias from node where `nid` = ".$topic['nid']);
+		$tmp = $this->db->fetch_row("select uid,username,postdate from comments where `tid` = ".$topic['tid']." order by postdate desc limit 1");
+		$topic['comment_info'] = $tmp ? $tmp : array('counts' => 0, 'msg' => '暂无回复');
+		$topic['comment_info']['counts'] = $this->db->fetch_field("select count(cid) as counts from comments where `tid` = ".$topic['tid']);
+		$topic['comments'] = $this->db->fetch_all("select *, avatar from comments,member where comments.uid = member.uid and `tid` = ".$topic['tid']);
+
+		/* 更新 */
+		$this->db->update('topic', array('views' => $topic['views'] + 1 ), array('tid' => $topic['tid'] ));
 		return helper_common::be_true($topic);
 	}
 
@@ -49,12 +56,17 @@ class TopicModel {
 		foreach ($list as $key => $value) {
 			$list[$key]['user_info'] = $this->db->fetch_row("select avatar,username from member where `uid` = ".$value['uid']);
 			$list[$key]['node_info'] = $this->db->fetch_row("select nodename,nodealias from node where `nid` = ".$value['nid']);
+			$tmp = $this->db->fetch_row("select uid,username from comments where `tid` = ".$value['tid']." order by postdate desc limit 1");
+			$list[$key]['comment_info'] =  $tmp ? $tmp : array('counts' => 0, 'msg' => '暂无回复');
+			$list[$key]['comment_info']['counts'] = $this->db->fetch_field("select count(cid) as counts from comments where `tid` = ".$value['tid']);
 		}
 		return $list;
 	}
 
 	public function add_comment($request, $tid) {
 		//添加评论
+
+		$data = array();
 
 		/* user */
 		$user = Yaf_Registry::get('_u');
@@ -64,9 +76,20 @@ class TopicModel {
 
 		if (empty(trim(strip_tags($request['comment'])))) return helper_common::be_false('请输入评论内容');
 
-		$request = helper_common::array_addslashes($request);
+		$topic = $this->db->fetch_row("select * from topic where tid = ".$tid);
+		if (!$topic) {
+			return helper_common::be_false("无效的话题ID");
+		}
 
-		$data = array();
+		if ($request['reply']) {
+			if (!is_numeric($request['reply']) || !$this->db->fetch_row("select cid from comments where cid = ".$request['reply'])) {
+				return helper_common::be_false("无效的回复ID");
+			}
+			$data['reply'] = $request['reply'];
+		}
+
+		$request = helper_common::array_addslashes($request);
+		
 		$data['tid'] = $tid;
 		$data['uid'] = $user['uid'];
 		$data['username'] = $user['username'];

@@ -3,7 +3,7 @@ include helper_theme::header();
 ?>
 <div class="panel-body no-padding">
 	<?php foreach ($list as $key => $value) : ?>
-		<div class="cell topic">
+		<div class="cell">
 		  <div class="avatar pull-left">
 			<a href="<?php helper_common::uri('user/'.$value['uid']);?>" title="<?php echo $value['user_info']['username'];?>">
 				<?php helper_user::avatar($value['user_info']['avatar'], 'middle');?>
@@ -11,7 +11,7 @@ include helper_theme::header();
 		  </div>
 		  <div class="item">
 			<div class="pull-right">
-				<div class="badge">15</div>
+				<div class="badge"><?php echo $value['comment_info']['counts'];?></div>
 			</div>
 			<h3 class="topic_title">
 				<a href="<?php helper_common::uri('topic/'.$value['tid']);?>">
@@ -25,8 +25,12 @@ include helper_theme::header();
 				<span class="text-muted">•</span>
 				<?php echo helper_common::time_format($value['postdate']);?>
 				<span class="text-muted">•</span>
+				<?php if ($value['comment_info']['counts'] > 0): ?>
 				最后回复来自
-				<a href="http://www.startbbs.com/user/info/3601" class="" title="xiaobai">xiaobai</a>
+				<a href="<?php helper_common::uri('user/'.$value['comment_info']['uid']);?>" class="" title="<?php echo $value['comment_info']['username'];?>"><?php echo $value['comment_info']['username'];?></a>
+				<?php else: ?>
+				<?php echo $value['comment_info']['msg'];?>
+				<?php endif;?>
 			</div>
 		  </div>
 		</div>

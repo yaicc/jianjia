@@ -62,6 +62,45 @@ $(function($) {
 		flag = true;
 		$(this).css("cursor", "not-allowed").text('提交中。。。');
 	});
+	$('.comment-reply').click(function(){
+		if ($(this).data('login') == 0) {
+			/* 登录 */
+			$(":input[name='email']").focus();
+			return;
+		}
+		var dom = $(this).parent().parent().children('.div-blank');
+		if ($('.reply_comment').length > 0) $('.reply_comment').remove();
+		dom.append($('<form action="#comment-'+ $(this).data("cid") +'" method="post" class="reply_comment" id="reply_comment"></form>'));
+		dom.children('.reply_comment').append($('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>'));
+		dom.children('.reply_comment').append($('<input type="hidden" name="reply" value="'+ $(this).data("cid") +'" />'));
+		dom.children('.reply_comment').append($('<div class="form-group"><textarea class="form-control editor_comment" wrap="virtual" name="comment"></textarea></div>'));
+		dom.children('.reply_comment').append($('<div class="form-group"><button type="submit" class="btn btn-success">提交回复</button></div>'));
+		var reply_editor = new Simditor({
+	  		textarea: $('.editor_comment'),
+	  		toolbar: [ 'title', 'bold', 'color', 'blockquote', 'link', 'image', 'emoji' ],
+	  		upload: {
+	  			url: '/ajax/upload/',
+	  			fileKey: 'upload_image',
+	  			connectionCount: 3,
+	  			leaveConfirm: '正在上传文件，如果离开上传会自动取消'
+	  		},
+	  		emoji: {
+		        imagePath: '/static/simditor/images/emoji/'
+		    }
+	  	});
+	  	reply_editor.focus();
+	  	dom.children('.reply_comment').children('.alert').hide();
+	  	dom.on("submit", "#reply_comment", function() {
+	  		if ($.trim(reply_editor.getValue().replace(/<[^>]+>/g,"")) == '') {
+				/* empty */
+				if (dom.children('.reply_comment').children('.alert').children('strong').length == 0) {
+					dom.children('.reply_comment').children('.alert').append($('<strong>警告！</strong> <span>你还没有发表你的观点哟！</span>'));
+					dom.children('.reply_comment').children('.alert').show();
+				}
+				return false;
+			}
+	  	});
+	});
 	/* end post */
 
 	/* register */

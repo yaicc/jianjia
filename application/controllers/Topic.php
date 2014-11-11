@@ -10,6 +10,16 @@ class topicController extends base_jianjia {
 
 		$topic_model = new TopicModel();
 
+		if ($this->getRequest()->isPost()) {
+			$data = $this->getRequest()->getPost();
+			$ret = $topic_model->add_comment($data, $tid);
+			if (!$ret['status']) {
+				$this->assign('comment_alert', $ret);
+			} else {
+				helper_common::redirect('topic/'.$tid.'/#comment-'.$ret['data']);
+			}
+		}
+
 		$topic = $topic_model->topic($tid);
 		if ($topic['status']) {
 			$topic = $topic['data'];
@@ -23,14 +33,6 @@ class topicController extends base_jianjia {
 		} else {
 			/* 404 */
 			helper_common::_404();
-		}
-
-		if ($this->getRequest()->isPost()) {
-			$data = $this->getRequest()->getPost();
-			$ret = $topic_model->add_comment($data, $tid);
-			if (!$ret['status']) {
-				$this->assign('comment_alert', $ret);
-			}
 		}
 	}
 
