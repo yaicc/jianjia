@@ -54,6 +54,7 @@ small {font-size: 12px;}
 .cell .comment_data p img {max-width: 100%;}
 .cell .reply-to {font-size: 13px;margin: 1em;padding: 0 10px;border-left: 1px solid #999;line-height: 20px;}
 .cell .reply-to p {margin: 0;}
+.pagenav {text-align: center;}
 
 /* 边栏 */
 .panel-body-ds {margin-top: 15px;font-size: 14px;}

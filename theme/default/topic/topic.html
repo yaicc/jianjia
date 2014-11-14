@@ -10,7 +10,6 @@ $script = '<script src="/static/scripts/simditor.js"></script>';
 	<div class="panel-heading"><?php if ($topic['comment_info']['counts'] == 0): ?>暂无回复<?php else:?><?php echo $topic['comment_info']['counts'];?> 回复<?php endif;?></div>
 	<div class="panel-body">
 		<?php foreach ($topic['comments'] as $key => $value) : ?>
-			<?php $comments[$value['cid']] = $value;?>
 			<div class="cell" id="comment-<?php echo $value['cid'];?>">
 				<div class="avatar pull-left">
 					<a href="<?php helper_common::uri('user/'.$value['uid']);?>" title="<?php echo $value['username'];?>">
@@ -19,7 +18,7 @@ $script = '<script src="/static/scripts/simditor.js"></script>';
 				</div>
 				<div class="item">
 					<div class="pull-right">
-						<span class="comment-count">#<?php echo $key+1;?></span>
+						<span class="comment-count">#<?php echo $value['floor'];?></span>
 						<a href="javascript:;" class="comment-reply" data-cid="<?php echo $value['cid'];?>" data-login="<?php if($user)echo 1;else echo 0;?>">reply</a>
 					</div>
 					<div class="comment_info">
@@ -30,13 +29,13 @@ $script = '<script src="/static/scripts/simditor.js"></script>';
 						<?php if ($value['status'] == 0) : ?>
 						<?php if ($value['reply'] != 0) :?>
 							<div class="reply-to">
-								<?php if ($comments[$value['reply']]['status'] == 0) : ?>
-								<?php echo helper_common::array_stripslashes($comments[$value['reply']]['comment']);?>
+								<?php if ($value['reply_info']['status'] == 0) : ?>
+								<?php echo helper_common::array_stripslashes($value['reply_info']['comment']);?>
 								<?php else: ?>
 								<p class="hide-comment">回复被隐藏</p>
 								<?php endif;?>
-								<a href="<?php helper_common::uri('user/'.$comments[$value['reply']]['uid']);?>" class="reply-user">
-									@<?php echo $comments[$value['reply']]['username'];?>
+								<a href="<?php helper_common::uri('user/'.$value['reply_info']['uid']);?>" class="reply-user">
+									@<?php echo $value['reply_info']['username'];?>
 								</a>
 							</div>
 						<?php endif;?>
@@ -49,6 +48,7 @@ $script = '<script src="/static/scripts/simditor.js"></script>';
 				</div>
 			</div>
 		<?php endforeach;?>
+		<?php if (isset($pagenav))echo $pagenav;?>
 	</div>
 </div>
 <div class="panel comment" id="reply">

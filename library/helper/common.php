@@ -33,7 +33,7 @@ class helper_common {
 		if (empty(self::$domain)) {
 			self::$domain = Yaf_Registry::get("config")->customer->domain;
 		}
-		return 'http://'.self::$domain.'/'.trim($url, '/').((!$url || strpos($url, '.') || strpos($url, '#')) ? '' : '/');
+		return 'http://'.self::$domain.'/'.trim($url, '/');
 	}
 
 	public static function redirect($uri, $message = '', $seconds = 0, $type = 'succeed') {
@@ -72,6 +72,35 @@ class helper_common {
         	else $diff = '刚刚';
         }
         return $diff;
+	}
+
+	public static function pagenav($counts, $size, $uri, $page, $suffix = '') {
+		if ($counts == 0 || $size > $counts) {
+			return null;
+		}
+		$page_counts = ceil($counts/$size);
+		if ($page > $page_counts) {
+			self::_404();
+		}
+		$str = "";
+		for ($i = 1; $i <= $page_counts; $i++) { 
+			if ($page == $i) {
+				$str .= '<li class="active"><a href="javascript:;">'.$i.'<span class="sr-only">(current)</span></a></li>';
+			} else {
+				$str .= '<li><a href="'.helper_common::get_uri($uri.'/'.$i.$suffix).'">'.$i.'</a></li>';
+			}
+		}
+		if ($page == 1) {
+			$str = '<li class="disabled"><a href="javascript:;">&laquo;</a></li>'.$str;
+		} else {
+			$str = '<li><a href="'.helper_common::get_uri($uri.'/'.($page-1)).$suffix.'">&laquo;</a></li>'.$str;
+		}
+		if ($page == $page_counts) {
+			$str .= '<li class="disabled"><a href="javascript:;">&raquo;</a></li>';
+		} else {
+			$str .= '<li><a href="'.helper_common::get_uri($uri.'/'.($page+1)).$suffix.'">&raquo;</a></li>';
+		}
+		return '<div class="pagenav"><nav><ul class="pagination">'.$str.'</ul></nav></div>';
 	}
 
 	public static function array_addslashes($string) {

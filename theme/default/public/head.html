@@ -30,8 +30,8 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php helper_common::uri();?>">首页</a></li>
-            <li><a href="#about">话题</a></li>
+            <li<?php if(!isset($app['menu_active']) || $app['menu_active'] == 'index'):?> class="active"<?php endif;?>><a href="<?php helper_common::uri();?>">首页</a></li>
+            <li<?php if(isset($app['menu_active']) && $app['menu_active'] == 'topic'):?> class="active"<?php endif;?>><a href="<?php helper_common::uri('topic');?>">话题</a></li>
             <li><a href="#contact">会员</a></li>
           </ul>
           <?php if ( $user ) :?>

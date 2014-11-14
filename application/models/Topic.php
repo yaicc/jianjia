@@ -14,9 +14,9 @@ class TopicModel {
 		$this->db = Yaf_Registry::get('db');
 	}
 
-	public function topic($tid) {
-		if (!is_numeric($tid)) {
-			return helper_common::be_false("无效的话题ID");
+	public function topic($tid, $page) {
+		if (!is_numeric($tid) || $tid < 1 || !is_numeric($page) || $page < 1) {
+			return helper_common::be_false("无效的话题");
 		}
 		$topic = $this->db->fetch_row("select * from topic where tid = ".$tid);
 		if (!$topic) {
@@ -28,8 +28,16 @@ class TopicModel {
 		$tmp = $this->db->fetch_row("select uid,username,postdate from comments where `tid` = ".$topic['tid']." order by postdate desc limit 1");
 		$topic['comment_info'] = $tmp ? $tmp : array('counts' => 0, 'msg' => '暂无回复');
 		$topic['comment_info']['counts'] = $this->db->fetch_field("select count(cid) as counts from comments where `tid` = ".$topic['tid']);
-		$topic['comments'] = $this->db->fetch_all("select *, avatar from comments,member where comments.uid = member.uid and `tid` = ".$topic['tid']);
 
+		$page_size = 15;
+		$start = ($page-1)*$page_size;
+		$topic['comments'] = $this->db->fetch_all("select *, avatar from comments,member where comments.uid = member.uid and `tid` = ".$topic['tid']." order by `postdate` desc limit $start, $page_size");
+		foreach ($topic['comments'] as $key => $value) {
+			if ($value['reply'] != 0) {
+				$topic['comments'][$key]['reply_info'] = $this->db->fetch_row("select comment,uid,username,status from comments where cid = ".$value['reply']);
+			}
+			$topic['comments'][$key]['floor'] = $topic['comment_info']['counts'] - $start - $key;
+		}
 		/* 更新 */
 		$this->db->update('topic', array('views' => $topic['views'] + 1 ), array('tid' => $topic['tid'] ));
 		return helper_common::be_true($topic);

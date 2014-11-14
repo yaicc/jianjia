@@ -6,7 +6,7 @@ class topicController extends base_jianjia {
     	$this->assign("content", "Hello World");
 	}
 
-	public function topicAction($tid) {
+	public function topicAction($tid, $page = 1) {
 
 		$topic_model = new TopicModel();
 
@@ -20,16 +20,20 @@ class topicController extends base_jianjia {
 			}
 		}
 
-		$topic = $topic_model->topic($tid);
+		$topic = $topic_model->topic($tid, $page);
 		if ($topic['status']) {
 			$topic = $topic['data'];
 
+			$pagenav = helper_common::pagenav($topic['comment_info']['counts'], 15, 'topic/'.$tid, $page, '#comments');
+
 			/* app data*/
 			$this->app['crumbs'] = $topic['title'];
+			$this->app['menu_active'] = 'topic';
 			$this->app['topic_right'] = true;
 
 			$this->assign('app', $this->app);
 			$this->assign('topic', $topic);
+			$this->assign('pagenav', $pagenav);
 		} else {
 			/* 404 */
 			helper_common::_404();
