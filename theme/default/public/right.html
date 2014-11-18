@@ -76,19 +76,13 @@
   <div class="panel">
 	 <div class="panel-heading">热门话题</div>
 	  <div class="panel-body">
-	    <ul class="list-unstyled">
-		  <li><a href="">文学青年的网络聚集地</a></li>
-		  <li><a href="">文学青年的网络聚集地</a></li>
-		  <li><a href="">文学青年的网络聚集地</a></li>
-		  <li><a href="">文学青年的网络聚集地</a></li>
-		  <li><a href="">文学青年的网络聚集地</a></li>
-		</ul>
+	    <?php Yaf_Registry::get("widgets")->hot_topic();?>
 	  </div>
   </div>      
   <div class="panel">
 	 <div class="panel-heading">话题分类</div>
 	  <div class="panel-body">
-	    Panel content
+	    <?php Yaf_Registry::get("widgets")->node();?>
 	 </div>
   </div>        
   <div class="panel">

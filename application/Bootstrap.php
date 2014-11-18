@@ -100,6 +100,12 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
         Yaf_Registry::set('db', $db);
 	}
 
+    //组件
+    public function _initWidgets() {
+        $widgets = new class_widgets();
+        Yaf_Registry::set("widgets", $widgets);
+    }
+
     //用户初始化
     public function _initUser(Yaf_Dispatcher $dispatcher) {
         $user_model = new UserModel();

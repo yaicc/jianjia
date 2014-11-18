@@ -56,11 +56,25 @@ class TopicModel {
 		return $nodelist;
 	}
 
+	public function topic_total($node = 0) {
+		if ($node == 0) {
+			return $this->db->fetch_field("select count(tid) from topic where `status` = 0 and `top` = 0");
+		} else {
+			return $this->db->fetch_field("select count(tid) from topic where `status` = 0 and `top` = 0 and nid = $node");
+		}
+	}
+
 	public function topic_list_index($page) {
 		//话题列表
+		if (!is_numeric($page) || $page < 1) {
+			return helper_common::be_false('无效的page');
+		}
 		$page_size = 15;
-		$start = $page*$page_size;
-		$list = $this->db->fetch_all("select * from topic where `status` = 0 and `top` = 0 order by `postdate` desc limit $start, 15");
+		$start = ($page-1)*$page_size;
+		$list = $this->db->fetch_all("select tid,nid,uid,username,title,top,rate,postdate from topic where `status` = 0 and `top` = 0 order by `postdate` desc limit $start, 15");
+		if (!$list) {
+			return helper_common::be_false('没有话题了');
+		}
 		foreach ($list as $key => $value) {
 			$list[$key]['user_info'] = $this->db->fetch_row("select avatar,username from member where `uid` = ".$value['uid']);
 			$list[$key]['node_info'] = $this->db->fetch_row("select nodename,nodealias from node where `nid` = ".$value['nid']);
@@ -68,7 +82,7 @@ class TopicModel {
 			$list[$key]['comment_info'] =  $tmp ? $tmp : array('counts' => 0, 'msg' => '暂无回复');
 			$list[$key]['comment_info']['counts'] = $this->db->fetch_field("select count(cid) as counts from comments where `tid` = ".$value['tid']);
 		}
-		return $list;
+		return helper_common::be_true($list);
 	}
 
 	public function add_comment($request, $tid) {

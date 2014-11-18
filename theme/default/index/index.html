@@ -1,7 +1,7 @@
 <?php
 include helper_theme::header();
 ?>
-<div class="panel-body no-padding">
+<div class="panel-body no-padding" id="index-list">
 	<?php foreach ($list as $key => $value) : ?>
 		<div class="cell">
 		  <div class="avatar pull-left">
@@ -36,7 +36,13 @@ include helper_theme::header();
 		</div>
 	<?php endforeach;?>
 </div>
-<div class="panel-footer"><a href="">更多话题</a></div>
+<?php if(!isset($pagenav)):?>
+<div class="panel-footer"><a href="<?php helper_common::uri('list/2');?>" id="more-topic" data-lastid="<?php echo $value['tid'];?>">更多话题</a></div>
+<?php else: ?>
+<div class="panel-footer">
+<?php echo $pagenav;?>
+</div>
+<?php endif;?>
 </div>
 <?php
 include helper_theme::footer();
