@@ -1,0 +1,45 @@
+<?php
+include helper_theme::header();
+?>
+<div class="panel-body no-padding" id="index-list">
+	<?php foreach ($list as $key => $value) : ?>
+		<div class="cell">
+		  <div class="avatar pull-left">
+			<a href="<?php helper_common::uri('user/'.$value['uid']);?>" title="<?php echo $value['user_info']['username'];?>">
+				<?php helper_user::avatar($value['user_info']['avatar'], 'middle');?>
+			</a>
+		  </div>
+		  <div class="item">
+			<div class="pull-right">
+				<div class="badge"><?php echo $value['comment_info']['counts'];?></div>
+			</div>
+			<h3 class="topic_title">
+				<a href="<?php helper_common::uri('topic/'.$value['tid']);?>">
+					<?php echo $value['title'];?>
+				</a>
+			</h3>
+			<div class="topic-meta">
+				<a href="<?php helper_common::uri('node/'.$value['node_info']['nodealias']);?>" class="node"><?php echo $value['node_info']['nodename'];?></a>
+				<span class="text-muted">•</span>
+				<a href="<?php helper_common::uri('user/'.$value['uid']);?>" class="dark" title="<?php echo $value['user_info']['name'];?>"><?php echo $value['user_info']['username'];?></a>
+				<span class="text-muted">•</span>
+				<?php echo helper_common::time_format($value['postdate']);?>
+				<span class="text-muted">•</span>
+				<?php if ($value['comment_info']['counts'] > 0): ?>
+				最后回复来自
+				<a href="<?php helper_common::uri('user/'.$value['comment_info']['uid']);?>" class="" title="<?php echo $value['comment_info']['username'];?>"><?php echo $value['comment_info']['username'];?></a>
+				<?php else: ?>
+				<?php echo $value['comment_info']['msg'];?>
+				<?php endif;?>
+			</div>
+		  </div>
+		</div>
+	<?php endforeach;?>
+</div>
+<div class="panel-footer">
+<?php echo $pagenav;?>
+</div>
+</div>
+<?php
+include helper_theme::footer();
+?>

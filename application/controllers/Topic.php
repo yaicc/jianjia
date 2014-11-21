@@ -40,6 +40,27 @@ class topicController extends base_jianjia {
 		}
 	}
 
+	public function nodeAction($alias, $page = 1) {
+
+		$topic_model = new TopicModel();
+
+		$nodelist = $topic_model->topic_list_node($alias, $page);
+		if ($nodelist['status']) {
+
+			$pagenav = helper_common::pagenav($topic_model->topic_total($nodelist['data'][0]['nid']), 15, 'node/'.$alias, $page);
+    		$this->assign('pagenav', $pagenav);
+			$this->assign('list', $nodelist['data']);
+			/* app data*/
+			$this->app['crumbs'] = $nodelist['data'][0]['node_info']['nodename'];
+			$this->app['menu_active'] = 'topic';
+			$this->assign('app', $this->app);
+
+		} else {
+			helper_common::_404();
+		}
+		
+	}
+
 	public function postAction() {
 
 		/* app data*/
